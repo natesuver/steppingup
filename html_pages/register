@@ -5,145 +5,41 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <title>Information</title>
+    
+    <title>Register</title>
+
 </head>
 
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 150px;">
             <div class="col-md-12 text-center">
-                <h1>Demographics</h1>
+                <h1>Create New User</h1>
             </div>
         </div>
-        <br />
-        <div id="login_form_wrapper">
+        <div id="login_form_wrapper" >
             <div class="row text-center">
-                <form action="" method="POST">
+                <form action="demographics.html" method="POST">
                     <div class="row">
                         <div class="col-md-12">
-                            First Name: <input id="demo_fName" type='text' name='fName'>
+                            Username: <input id="login_username" type='text' name='username'>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            Last Name: <input id="demo_lName" type='text' name='lName'>
+                            Password:   <input id="login_pword" type='password' name='password'>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            Address: <input id="demo_address" type='text' name='address'>
+                            Confirm Password:   <input id="login_pword" type='password' name='password_confirm'>
                         </div>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            City: <input id="demo_city" type='text' name='city'>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            State: <select id="demo_state" type='text' name='state'>
-                                        <option>Alabama </option>
-                                        <option>Alaska</option>
-                                        <option>Arizona</option>
-                                        <option>Arkansas </option>
-                                        <option>California </option>
-                                        <option>Colorado</option>
-                                        <option>Connecticut</option>
-                                        <option>Delaware</option>
-                                        <option>Florida</option>
-                                        <option>Georgia</option>
-                                        <option>Hawaii</option>
-                                        <option>Idaho</option>
-                                        <option>Illinois</option>
-                                        <option>Indiana</option>
-                                        <option>Iowa</option>
-                                        <option>Kansas</option>
-                                        <option>Kentucky</option>
-                                        <option>Louisiana</option>
-                                        <option>Maine</option>
-                                        <option>Maryland</option>
-                                        <option>Massachusetts</option>
-                                        <option>Michigan</option>
-                                        <option>Minnesota</option>
-                                        <option>Mississippi</option>
-                                        <option>Missouri</option>
-                                        <option>Montana</option>
-                                        <option>Nebraska</option>
-                                        <option>Nevada</option>
-                                        <option>New Hampshire</option>
-                                        <option>New Jersey</option>
-                                        <option>New Mexico</option>
-                                        <option>New York</option>
-                                        <option>North Carolina</option>
-                                        <option>North Dakota</option>
-                                        <option>Ohio</option>
-                                        <option>Oklahoma</option>
-                                        <option>Oregon</option>
-                                        <option>Pennsylvania</option>
-                                        <option>Rhode Island</option>
-                                        <option>South Carolina</option>
-                                        <option>South Dakota</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Utah</option>
-                                        <option>Vermont</option>
-                                        <option>Virginia</option>
-                                        <option>Washington</option>
-                                        <option>West Virginia</option>
-                                        <option>Wisconsin</option>
-                                        <option>Wyoming</option>
-                                    </select>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            Postal Code: <input id="demo_pCode" type='text' name='pCode'>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            Gender: <select id="demo_gender" type='text' name='gender'>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            Birth Date: <input id="demo_bDay" type='date' name='bDay'>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            Height (in): <input id="demo_height" type='text' name='height'>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            Weight (lb): <input id="demo_weight" type='text' name='weight'>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            Occupation: <input id="demo_occupation" type='text' name='occupation'>
-                        </div>
-                    </div>
-                    <br />
                     <div class="row">
                         <div class="col-md-12" style="margin-top: 10px">
-                            <input id="enter" type='submit' value="OK" name='submit'>
-                            <input id="cancel" type="submit" value="Cancel" name="submit" />
+                            <input id="login_button" type='submit' value="Sign Up" name='submit'>
                         </div>
                     </div>
                 </form>
