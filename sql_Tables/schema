@@ -1,0 +1,38 @@
+Create database Stepping_Up;
+
+create table users (
+	userID int(12) not null auto_increment,
+	username varchar(255) not null unique,
+	password varchar(255) not null,
+	fName varchar(30) not null,
+	lName varchar(30),
+	address varchar(50),
+	city varchar(50),
+	state varchar(50) not null,
+	pCode varchar(5),
+	gender varchar(6) not null,
+	birthDate date() not null,
+	height int(),
+	weight int(),
+	occupation varchar(100) not null,
+	primary key (userID),
+);
+
+create table HeartRates (
+	heartID varchar(10),
+	userID varchar(10),
+	activityDate datetime(),
+	heartRate int(),
+	primary key (heartID),
+	foreign key (userID) references users(userID)
+);
+
+create table Steps (
+	stepID varchar(10),
+	userID varchar(10),
+	startDate datetime(),
+	endDate datetime(),
+	stepsTaken int(),
+	primary key (stepID),
+	foreign key (userID) references users(userID),
+);
