@@ -18,7 +18,7 @@
         <br />
         <div id="login_form_wrapper">
             <div class="row text-center">
-                <form action="" method="POST">
+                <form action="/add_demographics.php" method="POST">
                     <div class="row">
                         <div class="col-md-12">
                             First Name: <input id="demo_fName" type='text' name='fName'>
@@ -118,7 +118,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-12">
-                            Birth Date: <input id="demo_bDay" type='date' name='bDay'>
+                            Birth Date: <input id="demo_bDay" type='date' name='birthDate'>
                         </div>
                     </div>
                     <br />
