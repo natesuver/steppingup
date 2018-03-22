@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -9,7 +10,7 @@ the demographics html page:
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "Stepping_Up";
+$dbname = "SteppingUp";
 
 //Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -21,21 +22,24 @@ else {
 	echo "Successfully connected";
 }
 
-$value1 = $_POST["fName"];
-$value2 = $_POST["lName"]; 
-$value3 = $_POST["address"]; 
-$value4 = $_POST["city"];
-$value5 = $_POST["state"];
-$value6 = $_POST["pCode"]; 
-$value7 = $_POST["gender"]; 
-$value8 = $_POST["birthDate"];
-$value9 = $_POST["height"];
-$value10 = $_POST["weight"]; 
-$value11 = $_POST["occupation"]; 
+
+$value1 = $_POST["username"];
+$value2 = $_POST["password"];
+$value3 = $_POST["fName"];
+$value4 = $_POST["lName"]; 
+$value5 = $_POST["address"]; 
+$value6 = $_POST["city"];
+$value7 = $_POST["state"];
+$value8 = $_POST["pCode"]; 
+$value9 = $_POST["gender"]; 
+$value10 = $_POST["birthDate"];
+$value11 = $_POST["height"];
+$value12 = $_POST["weight"]; 
+$value13 = $_POST["occupation"]; 
 
 
-//run query and send data to database
-$sql = "insert into demographics values ('$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8', '$value9', '$value10', '$value11')";
+//send username and demographics information to database
+$sql = "insert into user values ('$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8', '$value9', '$value10', '$value11', '$value12', '$value13')";
 if ($conn->query($sql) === TRUE) {
 	echo "<br/>";
 	echo "Insertion successful";
