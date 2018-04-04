@@ -5,7 +5,7 @@
 ?>
 <html>
     <head>
-        <title>User Search</title>
+        <title>Stepping Up - User Search</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link href="style.css" type="text/css" rel="stylesheet">
         <script src="search.js"></script>
