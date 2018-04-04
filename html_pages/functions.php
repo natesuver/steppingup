@@ -8,6 +8,14 @@
         return $conn;
     }
 
+    function debug_to_console( $data ) {
+        $output = $data;
+        if ( is_array( $output ) )
+            $output = implode( ',', $output);
+    
+        echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+    }
+
     function execResults($sql) {
         $conn = getConnection();
         $data = array();
@@ -25,17 +33,17 @@
         return execResults($sql);
     }
 
-    function runReport($rptId, $from,  $to) {
+    function runReport($rptId, $from, $to) {
+       
         switch ($rptId) {
-            case 0: //Average Heart Rate Per Day/City SELECT SUM(foo), DATE(mydate) DateOnly FROM a_table GROUP BY DateOnly;
+            case 0: //Average Heart Rate Per Day/City
                 $sql = "SELECT avg(heartRate) as 'Avg Heart Rate', DATE(activityDate) 'Activity Date', city as City
                 from heartrates
                 INNER JOIN users
                  on users.username = heartrates.username
-                 WHERE city is not null
+                 WHERE city is not null and activityDate BETWEEN '".$from."' and '".$to."'
                  Group By 'Activity Date', city
-                 order by city
-                 ";
+                 order by city";
                 break;
             case 1: //Total Number of Steps Per Day/Gender/Age
                 $sql = "SELECT 
@@ -46,7 +54,7 @@
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
-                                 WHERE gender is not null and YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) < 100
+                                 WHERE gender is not null and startDate BETWEEN '".$from."' and '".$to."' and YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) < 100
                                  Group By 'Activity Date', gender, Age
                                  order by 'Activity Date', Age";
                 break;
@@ -58,7 +66,7 @@
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
-                                 WHERE occupation is not null
+                                 WHERE occupation is not null and startDate BETWEEN '".$from."' and '".$to."'
                                  Group By 'Activity Date', occupation
                                  order by 'Activity Date', occupation";
                 break;
@@ -74,6 +82,7 @@
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
+                                 WHERE startDate BETWEEN '".$from."' and '".$to."'
                                  Group By YEAR(startDate), users.username, users.address, users.city, users.state, users.occupation
                                  order by YEAR(startDate), users.username";
                 break;

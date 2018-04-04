@@ -1,5 +1,5 @@
 var mysql      = require('mysql');
-var insertInterval = 20;
+var insertInterval = 5;
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -18,12 +18,12 @@ connection.connect(function(err) {
 
 function formatNow() {
     var dt = new Date();
-    return dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+    return dt.getFullYear() + '-' + (dt.getMonth()+1) + '-' + dt.getDate() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
 }
 
 function formatOneMinuteAgo() {
     var dt = new Date(new Date() - 60000);
-    return dt.getFullYear() + '-' + dt.getMonth() + '-' + dt.getDate() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+    return dt.getFullYear() + '-' + (dt.getMonth()+1) + '-' + dt.getDate() + ' ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
 }
 
 function getRandomInteger(min, max) {

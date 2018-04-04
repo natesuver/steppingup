@@ -1,4 +1,6 @@
+var startDate;
 function search() {
+    startDate = new Date();
     var searchFor = document.getElementById('searchText').value;
     if (!searchFor) {
         alert('Enter at least one character');
@@ -17,4 +19,6 @@ function displaySearchResults(results) {
         resultText += "<tr><td><a href='demographics.html'>" + result.username + "</a></td><td>" + result.fName + "</td><td>" + result.lName + "</td><td>" + result.address  + "</td></tr>";
     }
     tableResultDiv.innerHTML = resultText;
+    var duration = new Date()-startDate;
+    toastr.info('Search Executed in ' + duration + ' ms');
 }

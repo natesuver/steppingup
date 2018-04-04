@@ -13,17 +13,23 @@ function search() {
     var from = document.getElementById('from').value;
     var to = document.getElementById('to').value;
     if (!rptId) {
-        alert('Select a Report');
+        toastr.error('Select a Report');
         return;
     }
     if (!from) {
-        alert('From Date is Required');
+        toastr.error('From Date is Required');
         return;
     }
     if (!to) {
-        alert('To Date is Required');
+        toastr.error('To Date is Required');
         return;
     }
+    if (from > to) {
+        toastr.error('From Date must be less than To Date');
+        return;
+    }
+    from+=" 00:00:00";
+    to+=" 23:59:59.999";
     $.ajax( {type:"Post", url:"reportSearch.php",data: {rptId:rptId, from: from, to: to}, success: function(result) {
         displaySearchResults(JSON.parse(result));
     } } );
@@ -32,6 +38,10 @@ function search() {
 function displaySearchResults(results) {
     var tableHeadersDiv = document.getElementById('tableHeaders');
     var tableResultDiv = document.getElementById('results');
+    if (results.length==0) {
+        toastr.info("No Results Found");
+        return;
+    }
     var fieldNames = Object.keys(results[0]); //get the names of the fields
     var headerText = '';
     for (var i=0;i<fieldNames.length;i++) {
