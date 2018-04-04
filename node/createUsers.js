@@ -1,6 +1,6 @@
 var mysql      = require('mysql');
 require('./seeds.js');
-
+var insertInterval = 10;
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -9,7 +9,6 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-  // connected! (unless err is set)
   if (err) {
     console.log('Connected Failure: ' + err);
   } else {
@@ -35,15 +34,12 @@ function getRandomInteger(min, max) {
 }
 
 function insertRandomUsers() {
-    for (var i=0;i<300;i++) {
-        insertUser();
-    }
+    setInterval(insertUser,insertInterval)
 }
 
 function insertUser() {
     var sql = 'INSERT INTO users (username, password, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation, admin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     var user = buildUser();
-   // console.log("SELECT count(*) as cnt from users WHERE username = '" + user[0] + "';");
     connection.query("SELECT count(*) as cnt from users WHERE username = '" + user[0] + "';", function (error, results, fields) {
          if (error) throw error;
          if (results[0].cnt == 0) {
@@ -52,7 +48,9 @@ function insertUser() {
                 console.log('Insert Completed for ' + user[0]);
               });
          }
-         //console.log(JSON.stringify(results));
+         else {
+            console.log('User ' + user[0] + ' already exists, skipping.');
+         }
        });
 }
 function buildUser() {
@@ -70,7 +68,6 @@ function buildUser() {
     var occupation =  randomEntry(global.occupations);
     
     var inserts = [username,'pw123',first,last,address,city,state,zip,gender,bDate, height, weight,occupation,0];
-   // console.log(data);
     return inserts;
    
 }
