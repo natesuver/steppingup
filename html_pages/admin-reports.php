@@ -1,7 +1,6 @@
 <?php session_start();
-   # if (!isset($_SESSION['username'])) #uncomment this once login works.
-      #  header( 'Location: login.php' );
-      $_SESSION['username'] = 'nate';
+    if (!isset($_SESSION['username']) || $_SESSION['admin']===0)
+        header( 'Location: login.php' );
 ?>
 <html>
     <head>

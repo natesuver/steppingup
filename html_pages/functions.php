@@ -15,7 +15,15 @@
     
         echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
     }
-
+    function execNoResult($sql) {
+        $conn = getConnection();
+        $result = $conn->query($sql);
+        if ($conn->error) {
+        throw new Exception("Database Error [{$conn->errno}] {$conn->error}");
+        }
+        $conn->close();
+        return $result;
+    }
     function execResults($sql) {
         $conn = getConnection();
         $data = array();
@@ -27,7 +35,16 @@
         $conn->close();
         return $data;
     }
-
+    function execSingleResult($sql) {
+        $conn = getConnection();
+        $result = $conn->query($sql);
+        if (!$result) {
+            throw new Exception("Database Error [{$conn->errno}] {$conn->error}");
+        }
+        $data = $result->fetch_assoc();
+        $conn->close();
+        return $data;
+    }
     function searchUsers($text) {
         $sql = "Select username, fName, lName, address from users where username like '%".$text."%' or fname like '%".$text."%'  or lname like '%".$text."%'";
         return execResults($sql);
@@ -89,4 +106,29 @@
         }
         
         return execResults($sql);
+    }
+
+    function validateLogin($username, $password) {
+        $sql = "Select password, admin from users where username='".$username."'";
+        $sqlResult = execSingleResult($sql);
+        if (empty($sqlResult)) {
+            return array(
+                "isValid"=> false,
+                "message"=> "Invalid username"
+                );
+        }
+        if(password_verify($password,$sqlResult['password'])) {
+            return array(
+                "isValid"=> true,
+                "message"=> "User Logged In",
+                "admin"=> $sqlResult['admin']
+                );
+        }
+        else {
+            return array(
+                "isValid"=> false,
+                "message"=> "Invalid password"
+                );
+        }
+       
     }

@@ -1,6 +1,7 @@
 <?php session_start();
-    if (!isset($_SESSION['username']) || $_SESSION['admin']===0)
+    if (!isset($_SESSION['username']))
         header( 'Location: login.php' );
+
 ?>
 <html>
     <head>
@@ -15,16 +16,15 @@
     </head>
     <body>
         <div class="title">
-            <h1>Welcome to Stepping Up Administration</h1>
+            <h1>Welcome to Stepping Up</h1>
         </div>
         <a href="logout.php" class="homeLink">Log Out</a>
 
         <div class="adminNavBox">
-            <?php echo "<h4>Welcome to the administration page, ".$_SESSION['username']."!</h4><br>" ?>
+            <?php echo "<h4>Welcome to Stepping Up, ".$_SESSION['username']."!</h4><br>" ?>
             <div class="list-group">
-                <a class="list-group-item list-group-item-info" href="admin-reports.php">Run System Reports</a>
-                <a class="list-group-item list-group-item-info" href="search.php">Search Users</a>
-                <a class="list-group-item list-group-item-info" href="telemetry.php">View Incoming Telemetry</a>
+                <a class="list-group-item list-group-item-info" href="admin-reports.php">View my Demographic Data</a>
+                <a class="list-group-item list-group-item-info" href="telemetry.php">View Device Usage History</a>
             </div>
         </div>
     </body>

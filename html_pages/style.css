@@ -42,3 +42,8 @@
 .date-input {
     max-width: 200px;
 }
+
+.loginError {
+    color: red;
+    padding: 5px;
+}

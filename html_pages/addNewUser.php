@@ -1,20 +1,5 @@
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "steppingup";
-
-//Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-//Check connection
-if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
-}
-else {
-	echo "Successfully connected";
-}
-
+<?php session_start();
+require 'functions.php';
 $value1 = $_POST["username"];
 $value2 = password_hash($_POST["password"], PASSWORD_DEFAULT);
 $value3 = $_POST["fName"];
@@ -28,19 +13,18 @@ $value10 = $_POST["birthDate"];
 $value11 = $_POST["height"];
 $value12 = $_POST["weight"]; 
 $value13 = $_POST["occupation"]; 
-$value14 = $_POST[""];
 
 //send username and demographics information to database
-$sql = "insert into users values ('$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8', '$value9', '$value10', '$value11', '$value12', '$value13', '$value14')";
-if ($conn->query($sql) === TRUE) {
-	echo "<br/>";
-	echo "Insertion successful";
+$sql = "INSERT INTO users (username, password, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation, admin) 
+	VALUES ('$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8', '$value9', '$value10', $value11, $value12, '$value13',0)";
+
+if (execNoResult($sql) === TRUE) {
+	$_SESSION['username'] = $_POST['username'];
+    $_SESSION['admin'] = 0;
+	header( 'Location: admin-lobby.php' );
 } else {
 	echo "<br/>";
 	echo "Error accessing database: " . $conn->error; 
 }
-
-//terminate connection
-$conn->close();
 
 ?>
