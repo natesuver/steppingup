@@ -134,6 +134,8 @@
     }
 
 	function getUserInfo($username){
-		$sql = "Select fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
+		$sql = "Select username, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
 		return execSingleResult($sql);
 	}
+
+?>
