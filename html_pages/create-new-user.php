@@ -29,6 +29,9 @@
         <div class="input-group">
             <label for="login_pword2">Confirm Password:</span>
             <input class="form-control" id="login_pword2" type='password' name='password_confirm' required>
+           	<br />
+			   <div class="row text-center" id="password_check"> <!--displays message saying if passwords match or not-->
+            </div>
         </div>
         <div class="input-group">
             <label for="demo_fName">First Name:</span>
