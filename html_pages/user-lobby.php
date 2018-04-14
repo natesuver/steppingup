@@ -1,7 +1,9 @@
 <?php session_start();
-    if (!isset($_SESSION['username']))
-        header( 'Location: login.php' );
-
+    require 'functions.php';
+    redirect();
+    if ($_SESSION['admin']==1){
+        header( 'Location: admin-lobby.php' );
+    } 
 ?>
 <html>
     <head>

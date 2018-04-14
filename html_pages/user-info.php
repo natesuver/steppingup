@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	require 'functions.php';
-    if (!isset($_SESSION['username']) || $_SESSION['admin']===0){
+    if (!isset($_SESSION['username'])){
 		header( 'Location: login.php' );
 	}
     $user = '' ;//Grab user from somewhere(maybe URL route?)

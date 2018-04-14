@@ -1,6 +1,6 @@
 <?php session_start();
-    if (!isset($_SESSION['username']) || $_SESSION['admin']===0)
-        header( 'Location: login.php' );
+    require 'functions.php';
+    redirect();
 ?>
 <html>
     <head>
@@ -20,7 +20,7 @@
         <div class="title">
             <h1>Administrative Reports</h1>
         </div>
-        <a href="logout.php" class="homeLink">Log Out</a>
+        <a href="admin-lobby.php" class="homeLink">Return to Lobby</a>
 
         <div class="report-search-box">
             <div class="container">

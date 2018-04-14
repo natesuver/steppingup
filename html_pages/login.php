@@ -2,16 +2,20 @@
     session_start();
     require 'functions.php';
     $loginError = '';
-    if (isset($_SESSION['username'])) {
-        header( 'Location: ./admin-lobby.php' ); //user is already logged in, go right to admin lobby.
-    }
+   /* if (isset($_SESSION['username'])) {
+        if ($_SESSION['admin']==0){
+            header( 'Location: user-lobby.php' );
+        } else {
+            header( 'Location: admin-lobby.php' );
+        }
+    } */
     if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['username']) && !empty($_POST['password'])) {
         $loginResult = validateLogin($_POST['username'], $_POST['password']);
         $loginError = $loginResult['message'];
         if ($loginResult['isValid']==1) {
             $_SESSION['username'] = $_POST['username'];
             $_SESSION['admin'] = $loginResult['admin'];
-            if ($_SESSION['admin']===1)
+            if ($_SESSION['admin']==1)
                 header( 'Location: admin-lobby.php' );
             else
                 header( 'Location: user-lobby.php' );

@@ -136,6 +136,22 @@
 	function getUserInfo($username){
 		$sql = "Select username, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
 		return execSingleResult($sql);
-	}
+    }
+    
+    function getHeartrateTelemetry() {
+        $sql = "Select activityDate, heartRate from heartrates order by activityDate desc LIMIT 20;";
+		return execResults($sql);
+    }
+    function getStepTelemetry() {
+        $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 20;";
+		return execResults($sql);
+    }
+    function redirect() {
+        if (!isset($_SESSION['username'])){
+            header( 'Location: login.php' );
+            return;
+        }
+       
+    }
 
 ?>

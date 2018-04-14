@@ -1,6 +1,9 @@
 <?php session_start();
-    if (!isset($_SESSION['username']) || $_SESSION['admin']===0)
-        header( 'Location: login.php' );
+    require 'functions.php';
+    redirect();
+    if ($_SESSION['admin']==0){
+        header( 'Location: user-lobby.php' );
+    }
 ?>
 <html>
     <head>
@@ -18,7 +21,6 @@
             <h1>Welcome to Stepping Up Administration</h1>
         </div>
         <a href="logout.php" class="homeLink">Log Out</a>
-
         <div class="adminNavBox">
             <?php echo "<h4>Welcome to the administration page, ".$_SESSION['username']."!</h4><br>" ?>
             <div class="list-group">

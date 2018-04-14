@@ -1,5 +1,5 @@
 var mysql      = require('mysql');
-var insertInterval = 5;
+var insertInterval = 200;
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
