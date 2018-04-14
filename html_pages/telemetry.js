@@ -1,6 +1,8 @@
-var refreshRate = 250;
+var refreshRate = 400;
 var accumulatedHrData = [];
 var accumulatedStepData = [];
+var hrChart;
+var stepChart;
 function initChart() {
     google.charts.load('current', {'packages':['corechart']});
     accumulatedHrData.push(['Date', 'Heartrate']);
@@ -23,7 +25,7 @@ function getData() {
 function drawHeartrateChart(data) {
     for (var i=0;i<data.length;i++) {
         accumulatedHrData.push([new Date(Date.parse(data[i].activityDate.replace('-','/','g'))), parseInt(data[i].heartRate)]);
-        if (accumulatedHrData.length > 5000) {
+        if (accumulatedHrData.length > 3000) {
             accumulatedHrData.shift();
             accumulatedHrData[0] = ['Date', 'Heartrate'];
         }
@@ -39,16 +41,18 @@ function drawHeartrateChart(data) {
         vAxis: {title: 'Heartrate', minValue: 60, maxValue: 130},
         legend: 'none'
     };
+    if (hrChart) {
+        hrChart.clearChart();
+    }
+    hrChart = new google.visualization.ScatterChart(document.getElementById('hr_chart'));
 
-    var chart = new google.visualization.ScatterChart(document.getElementById('hr_chart'));
-
-    chart.draw(data, options);
+    hrChart.draw(data, options);
 }
 
 function drawStepChart(data) {
     for (var i=0;i<data.length;i++) {
         accumulatedStepData.push([new Date(Date.parse(data[i].startDate.replace('-','/','g'))), parseInt(data[i].stepsTaken)]);
-        if (accumulatedStepData.length > 5000) {
+        if (accumulatedStepData.length > 3000) {
             accumulatedStepData.shift();
             accumulatedStepData[0] = ['Date', 'Steps'];
         }
@@ -64,8 +68,10 @@ function drawStepChart(data) {
         vAxis: {title: 'Steps Taken', minValue: 5, maxValue: 100},
         legend: 'none'
     };
+    if (stepChart) {
+        stepChart.clearChart();
+    }
+    stepChart = new google.visualization.ScatterChart(document.getElementById('steps_chart'));
 
-    var chart = new google.visualization.ScatterChart(document.getElementById('steps_chart'));
-
-    chart.draw(data, options);
+    stepChart.draw(data, options);
 }

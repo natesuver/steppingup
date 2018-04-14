@@ -139,11 +139,11 @@
     }
     
     function getHeartrateTelemetry() {
-        $sql = "Select activityDate, heartRate from heartrates order by activityDate desc LIMIT 20;";
+        $sql = "Select activityDate, heartRate from heartrates order by activityDate desc LIMIT 15;";
 		return execResults($sql);
     }
     function getStepTelemetry() {
-        $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 20;";
+        $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 15;";
 		return execResults($sql);
     }
     function redirect() {
