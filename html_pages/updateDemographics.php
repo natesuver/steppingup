@@ -38,7 +38,7 @@ $occupation = $user['occupation'];
     <div class="panel-heading">
         <h3 class="panel-title">Create New User</h3>
     </div>
-    <form action="updateDemographics.php" method="POST" class="panel-body">
+    <form action="add-demographics-changes.php" method="POST" class="panel-body">
         <div class="input-group">
             <label for="login_username">Username:</span>
             <?php echo "<input class='form-control' id='login_username' type='text' name='username' required value='$username'>" ?>
