@@ -1,26 +1,60 @@
-<?php session_start();
-   
-?>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+//php to check if user exists and adds demographics to database if username is unique
+//addNewUser.php is now not needed
+<?php session_start(); 
+require 'functions.php';
+if (isset($_SESSION['username'])) {
+	header( 'Location: ../user-lobby.php' ); //user is already logged in, go right to lobby.
+}
 
+$newUserError = '';
+if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['username'])) {
+	$newUserResult = validateNewUsername($_POST['username']);
+	$newUserError = $newUserResult['message'];
+	if ($newUserResult['isValid']==1){
+		$_SESSION['username'] = $_POST['username'];
+		$value1 = $_POST["username"];
+		$value2 = password_hash($_POST["password"], PASSWORD_DEFAULT);
+		$value3 = $_POST["fName"];
+		$value4 = $_POST["lName"]; 
+		$value5 = $_POST["address"]; 
+		$value6 = $_POST["city"];
+		$value7 = $_POST["state"];
+		$value8 = $_POST["pCode"]; 
+		$value9 = $_POST["gender"]; 
+		$value10 = $_POST["birthDate"];
+		$value11 = $_POST["height"];
+		$value12 = $_POST["weight"]; 
+		$value13 = $_POST["occupation"]; 
+		$sql = "INSERT INTO users (username, password, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation, admin) 
+		VALUES ('$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8', '$value9', '$value10', '$value11', '$value12', '$value13',0);";
+		if (execNoResult($sql) === TRUE) {
+			$_SESSION['username'] = $_POST['username'];
+			$_SESSION['admin'] = 0;
+			header( 'Location: user-lobby.php' );
+		} else {
+			echo "<br/>";
+			echo "Error accessing database: " . $conn->error; 
+		}
+	}
+}
+?>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./style.css" />
-    
     <title>Register</title>
-
 </head>
-
 <body>
 <div class="panel panel-info report-search-box">
     <div class="panel-heading">
         <h3 class="panel-title">Create New User</h3>
     </div>
-    <form action="addNewUser.php" method="POST" class="panel-body">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="panel-body">
         <div class="input-group">
             <label for="login_username">Username:</span>
-            <input class="form-control" id="login_username" type='text' name='username' required>
+            <input class="form-control" id="login_username" type='text' name='username' required><span class="newUserError" style="color: red;"><?php echo $newUserError; ?></span>
         </div>
         <div class="input-group">
             <label for="login_pword">Password:</span>
@@ -29,8 +63,8 @@
         <div class="input-group">
             <label for="login_pword2">Confirm Password:</span>
             <input class="form-control" id="login_pword2" type='password' name='password_confirm' required>
-           	<br />
-			   <div class="row text-center" id="password_check"> <!--displays message saying if passwords match or not-->
+			<br />
+			<div class="row text-center" id="password_check">
             </div>
         </div>
         <div class="input-group">
@@ -136,11 +170,9 @@
         </div>
         <br>
         <input id="enter" type='submit' value="Sign Up" name='submit'>
-        
-        <input id="cancel" type="submit" value="Cancel" name="submit" />
+        <input id="cancel" type="submit" value="Cancel" name="cancel" />
     </form>
 </div>
-
     <div class="row">
         <div class="col-md-12">
             <h1></h1>
@@ -148,7 +180,6 @@
     </div>
     <div id="login_form_wrapper" >
         <div class="row ">
-           
                 <div class="row">
                     <div class="col-md-12">
                         : 
@@ -175,7 +206,6 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            
                         </div>
                     </div>
                     <br>
@@ -217,25 +247,21 @@
                     <br />
                     <div class="row">
                         <div class="col-md-12">
-                           
                         </div>
                     </div>
                     <br />
                     <div class="row">
                         <div class="col-md-12">
-                            
                         </div>
                     </div>
                     <br />
                     <div class="row">
                         <div class="col-md-12">
-                            
                         </div>
                     </div>
                     <br />
                     <div class="row">
                         <div class="col-md-12" style="margin-top: 10px">
-                           
                         </div>
                     </div>
                 </form>
@@ -244,9 +270,9 @@
     </div>
 </body>
 </html>
-
 <script
     src="https://code.jquery.com/jquery-1.12.4.min.js"
     integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
     crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="validatePassword.js"></script>
