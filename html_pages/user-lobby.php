@@ -27,6 +27,7 @@
             <div class="list-group">
                 <a class="list-group-item list-group-item-info" href="admin-reports.php">View my Demographic Data</a>
                 <a class="list-group-item list-group-item-info" href="telemetry.php">View Device Usage History</a>
+                <a class="list-group-item list-group-item-info" name='viewDemo' href="updateDemographics.php">Update Demographics</a>
             </div>
         </div>
     </body>
