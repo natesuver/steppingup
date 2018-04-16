@@ -154,4 +154,22 @@
        
     }
 
+    function validateNewUsername($value1) {
+	$conn = getConnection();
+	$sql = "SELECT * FROM users WHERE username='".$value1."'";
+	$result = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result) > 0){
+		$conn->close();
+		return array(
+			"isValid"=> false,
+			"message"=>"Username is taken!! :-O"
+			);
+	} else {
+		$conn->close();
+		return array (
+			"isValid"=> true,
+			"message"=> "Welcome"
+		);
+	}
+	}
 ?>
