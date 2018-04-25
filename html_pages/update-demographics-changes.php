@@ -3,7 +3,6 @@ require 'functions.php';
 
 $currentUser = $_SESSION['username'];
 
-$value1 = $_POST["username"];
 $value3 = $_POST["fName"];
 $value4 = $_POST["lName"]; 
 $value5 = $_POST["address"]; 
@@ -16,13 +15,11 @@ $value12 = $_POST["weight"];
 $value13 = $_POST["occupation"]; 
 
 //update demographics information to database
-$sql = "UPDATE users SET username='$value1', fName='$value3', lName='$value4', address='$value5', city='$value6', 
+$sql = "UPDATE users SET fName='$value3', lName='$value4', address='$value5', city='$value6', 
 state='$value7', pCode='$value8', gender='$value9', height=$value11, weight=$value12, occupation='$value13'
 WHERE username='$currentUser';";
 
 if (execNoResult($sql) === TRUE) {
-	$_SESSION['username'] = $_POST['username'];
-    $_SESSION['admin'] = 0;
 	header( 'Location: user-lobby.php' );
 } else {
 	echo "<br/>";

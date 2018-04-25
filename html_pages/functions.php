@@ -54,7 +54,7 @@
        
         switch ($rptId) {
             case 0: //Average Heart Rate Per Day/City
-                $sql = "SELECT avg(heartRate) as 'Avg Heart Rate', DATE(activityDate) 'Activity Date', city as City
+                $sql = "SELECT city as City,avg(heartRate) as 'Avg Heart Rate', DATE(activityDate) 'Activity Date'
                 from heartrates
                 INNER JOIN users
                  on users.username = heartrates.username
@@ -64,10 +64,10 @@
                 break;
             case 1: //Total Number of Steps Per Day/Gender/Age
                 $sql = "SELECT 
-                sum(stepsTaken) as 'Steps', 
                 DATE(startDate) as 'Activity Date', 
                 gender as Gender,
-                YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) as Age
+                YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) as Age,
+                sum(stepsTaken) as 'Steps'
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
@@ -77,9 +77,9 @@
                 break;
             case 2: //Total Steps Per Day/Occupation
                 $sql = "SELECT 
-                sum(stepsTaken) as 'Steps', 
                 DATE(startDate) as 'Activity Date', 
-                occupation as Occupation
+                occupation as Occupation,
+                sum(stepsTaken) as 'Steps'
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
@@ -146,6 +146,15 @@
         $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 15;";
 		return execResults($sql);
     }
+    function getDeviceHeartrateTelemetry() {
+        $sql = "Select activityDate, heartRate from heartrates WHERE username = '".$_SESSION['username']."' order by activityDate desc LIMIT 15;";
+		return execResults($sql);
+    }
+    function getDeviceStepTelemetry() {
+        $sql = "Select startDate, stepsTaken from steps WHERE username = '".$_SESSION['username']."' order by startDate desc LIMIT 15;";
+		return execResults($sql);
+    }
+
     function redirect() {
         if (!isset($_SESSION['username'])){
             header( 'Location: login.php' );

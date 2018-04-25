@@ -25,9 +25,8 @@
         <div class="adminNavBox">
             <?php echo "<h4>Welcome to Stepping Up, ".$_SESSION['username']."!</h4><br>" ?>
             <div class="list-group">
-                <a class="list-group-item list-group-item-info" href="admin-reports.php">View my Demographic Data</a>
-                <a class="list-group-item list-group-item-info" href="telemetry.php">View Device Usage History</a>
-                <a class="list-group-item list-group-item-info" name='viewDemo' href="updateDemographics.php">Update Demographics</a>
+                <a class="list-group-item list-group-item-info" href="updateDemographics.php">View/Update my Demographic Data</a>
+                <a class="list-group-item list-group-item-info" href="device.php">View Device Usage History</a>
             </div>
         </div>
     </body>

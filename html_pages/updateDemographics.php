@@ -34,14 +34,14 @@ $occupation = $user['occupation'];
 </head>
 
 <body>
-<div class="panel panel-info report-search-box">
+<div class="panel panel-info user-demographics-box">
     <div class="panel-heading">
-        <h3 class="panel-title">Create New User</h3>
+        <h3 class="panel-title">View / Update User</h3>
     </div>
-    <form action="add-demographics-changes.php" method="POST" class="panel-body">
+    <form action="update-demographics-changes.php" method="POST" class="panel-body">
         <div class="input-group">
             <label for="login_username">Username:</span>
-            <?php echo "<input class='form-control' id='login_username' type='text' name='username' required value='$username'>" ?>
+            <?php echo "<input disabled class='form-control' id='login_username' type='text' name='username' required value='$username'>" ?>
         </div>
         <div class="input-group">
             <label for="demo_fName">First Name:</span>

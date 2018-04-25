@@ -1,20 +1,11 @@
 var mysql      = require('mysql');
-var insertInterval = 200;
+var insertInterval = 800;
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
   database: 'steppingup'
 });
-
-connection.connect(function(err) {
-    if (err) {
-      console.log('Connected Failure: ' + err);
-    } else {
-      console.log('Connected Successfully!');
-    }
-    
-  });
 
 function formatNow() {
     var dt = new Date();
@@ -32,6 +23,9 @@ function getRandomInteger(min, max) {
 
 function insertHeartrate() {
     var username = global.usernames[getRandomInteger(0,global.usernames.length-1)].username;
+    if (process.argv[2]) {
+        username = process.argv[2];
+    }
     var sql = 'INSERT INTO heartrates (username, activityDate, heartRate) VALUES (?,?,?)';
     var rateEntry = [username,formatNow(),getRandomInteger(60,130)];
     connection.query(mysql.format(sql, rateEntry), function (error, results, fields) {
@@ -42,6 +36,9 @@ function insertHeartrate() {
 
 function insertStep() {
     var username = global.usernames[getRandomInteger(0,global.usernames.length-1)].username;
+    if (process.argv[2]) {
+        username = process.argv[2];
+    }
     var sql = 'INSERT INTO steps (username, startDate, endDate, stepsTaken)  VALUES (?,?,?,?)';
     var entry = [username,formatNow(),formatOneMinuteAgo(),getRandomInteger(5,100)];
     connection.query(mysql.format(sql, entry), function (error, results, fields) {
@@ -51,6 +48,14 @@ function insertStep() {
 }
 
 function start(){
+    connection.connect(function(err) {
+        if (err) {
+          console.log('Connected Failure: ' + err);
+        } else {
+          console.log('Connected Successfully!');
+        }
+        
+      });
     getUsernames()
 }
 

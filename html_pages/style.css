@@ -10,11 +10,24 @@
     background-color: cornsilk;
 }
 
+.user-demographics-box {
+    border: 1px solid deepskyblue;
+    position: absolute;
+    height: auto;
+    top: 5%;
+    left: 35%;
+    padding: 10px;
+    margin: 10px;
+    padding: 5px;
+    min-height: 150px;
+    background-color: cornsilk;
+}
 .report-search-box {
     border: 1px solid deepskyblue;
     position: absolute;
     height: auto;
     top: 10%;
+    left: 5%;
     padding: 10px;
     margin: 10px;
     padding: 5px;

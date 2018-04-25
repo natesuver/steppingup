@@ -1,10 +1,6 @@
-//php to check if user exists and adds demographics to database if username is unique
-//addNewUser.php is now not needed
 <?php session_start(); 
 require 'functions.php';
-if (isset($_SESSION['username'])) {
-	header( 'Location: ../user-lobby.php' ); //user is already logged in, go right to lobby.
-}
+
 
 $newUserError = '';
 if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['username'])) {
@@ -47,7 +43,7 @@ if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['usern
     <title>Register</title>
 </head>
 <body>
-<div class="panel panel-info report-search-box">
+<div class="panel panel-info user-demographics-box">
     <div class="panel-heading">
         <h3 class="panel-title">Create New User</h3>
     </div>
