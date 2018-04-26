@@ -39,7 +39,7 @@ $occupation = $user['occupation'];
     <div class="panel-heading">
         <h3 class="panel-title">Create New User</h3>
     </div>
-    <form action="user-lobby.php" method="POST" class="panel-body">
+    <form action="" method="POST" class="panel-body">
         <div class="input-group">
             <label for="login_username">Username:</span>
             <?php echo "<input class='form-control' id='login_username' type='text' name='username' disabled value='$username'>" ?>
@@ -88,9 +88,13 @@ $occupation = $user['occupation'];
             <label for="demo_occupation">Occupation:</span>
             <?php echo "<input id='demo_occupation' type='text' name='occupation' disabled value='$occupation'>" ?>
         </div>
-        <br>
-        <input id="cancel" type="submit" value="Back" name="submit" />
     </form>
+<div class="userNavBox">
+    <div class="list-group">
+	<a class="list-group-item list-group-item-info" href="updateDemo.php">Update my Demographics</a>
+	<a class="list-group-item list-group-item-info" href="user-lobby.php">Cancel</a>
+    </div>
+</div>
 </div>
     <div class="row">
         <div class="col-md-12">
