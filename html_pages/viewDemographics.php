@@ -31,7 +31,7 @@ $occupation = $user['occupation'];
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./style.css" />
-    <title>Update Demographics</title>
+    <title>View Demographics</title>
 </head>
 
 <body>
