@@ -1,15 +1,17 @@
 <?php
 session_start();
-require 'functions.php';
+//require 'functions.php';
+require 'noSql-functions.php';
     if (!isset($_SESSION['username'])) {
         header( 'Location: user-admin.php' );
 	}
 $conn = getConnection();
 $username = $_SESSION['username'];
-$sql = "SELECT username, fName, lName, address, city, state, pCode, gender, height, weight, occupation
+$user = getUserInfo($username);
+/*$sql = "SELECT username, fName, lName, address, city, state, pCode, gender, height, weight, occupation
 FROM users WHERE username='$username'";
 $query = mysqli_query($conn, $sql);
-$user = mysqli_fetch_array($query);
+$user = mysqli_fetch_array($query);*/
 
 $username = $_SESSION['username'];
 $fName = $user['fName'];

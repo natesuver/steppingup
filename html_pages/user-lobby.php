@@ -1,5 +1,6 @@
 <?php session_start();
-    require 'functions.php';
+    //require 'functions.php';
+	require 'noSql-functions.php';
     redirect();
     if ($_SESSION['admin']==1){
         header( 'Location: admin-lobby.php' );

@@ -1,6 +1,7 @@
 <?php
     session_start();
-    require 'functions.php';
+    //require 'functions.php';
+	require 'noSql-functions.php';
     $loginError = '';
    /* if (isset($_SESSION['username'])) {
         if ($_SESSION['admin']==0){

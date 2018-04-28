@@ -1,5 +1,6 @@
 <?php session_start(); 
-require 'functions.php';
+//require 'functions.php';
+require 'noSql-functions.php';
 
 
 $newUserError = '';
@@ -23,7 +24,8 @@ if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['usern
 		$value13 = $_POST["occupation"]; 
 		$sql = "INSERT INTO users (username, password, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation, admin) 
 		VALUES ('$value1', '$value2', '$value3', '$value4', '$value5', '$value6', '$value7', '$value8', '$value9', '$value10', '$value11', '$value12', '$value13',0);";
-		if (execNoResult($sql) === TRUE) {
+		$query= array('username'=>$value1, 'password'=>$value2, 'fname'=>$value3, 'lname'=>$value4, 'address'=>$value5, 'city'=>$value6, 'state'=> $value7, 'pCode'=>$value8, 'gender'=>$value9, 'birthDate'=>$value10, 'height'=>$value11, 'weight'=>$value12, 'occupation'=>$value13, 0);
+		if (insertOneResult($query)->getInsertedCount() > 0){//execNoResult($sql) === TRUE) {
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['admin'] = 0;
 			header( 'Location: user-lobby.php' );

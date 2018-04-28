@@ -1,5 +1,6 @@
 <?php session_start();
-require 'functions.php';
+//require 'functions.php';
+require 'noSql-functions.php';//nosql
 
 $currentUser = $_SESSION['username'];
 
@@ -15,9 +16,11 @@ $value12 = $_POST["weight"];
 $value13 = $_POST["occupation"]; 
 
 //update demographics information to database
-$sql = "UPDATE users SET fName='$value3', lName='$value4', address='$value5', city='$value6', 
+/*$sql = "UPDATE users SET fName='$value3', lName='$value4', address='$value5', city='$value6', 
 state='$value7', pCode='$value8', gender='$value9', height=$value11, weight=$value12, occupation='$value13'
-WHERE username='$currentUser';";
+WHERE username='$currentUser';";*/
+$demographics = array('$set' => array('fName' => $value3, 'lName' =>$value4, 'address'=> $value5, 'city'=> $value6, 'state'=> $value7, 'pCode'=>$value7, 'gender'=>$value8, 'height'=>$value11, 'weight'=>$value12, 'occupation'=>$value13 ));//nosql
+updateDemographics($currentUser, $demographics);//noSql
 
 if (execNoResult($sql) === TRUE) {
 	header( 'Location: user-lobby.php' );
