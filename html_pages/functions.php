@@ -46,62 +46,82 @@
         return $data;
     }
     function searchUsers($text) {
-        $sql = "Select username, fName, lName, address from users where username like '%".$text."%' or fname like '%".$text."%'  or lname like '%".$text."%'";
-        return execResults($sql);
+	if ($_SESSION['useMongo']==0){
+            $sql = "Select username, fName, lName, address from users where username like '%".$text."%' or fname like '%".$text."%'  or lname like '%".$text."%'";
+            return execResults($sql);
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
     }
 
     function runReport($rptId, $from, $to) {
        
         switch ($rptId) {
             case 0: //Average Heart Rate Per Day/City
-                $sql = "SELECT city as City,avg(heartRate) as 'Avg Heart Rate', DATE(activityDate) 'Activity Date'
-                from heartrates
-                INNER JOIN users
-                 on users.username = heartrates.username
-                 WHERE city is not null and activityDate BETWEEN '".$from."' and '".$to."'
-                 Group By 'Activity Date', city
-                 order by city";
+		if ($_SESSION['useMongo']==0) {
+                    $sql = "SELECT city as City,avg(heartRate) as 'Avg Heart Rate', DATE(activityDate) 'Activity Date'
+                    from heartrates
+                    INNER JOIN users
+                     on users.username = heartrates.username
+                     WHERE city is not null and activityDate BETWEEN '".$from."' and '".$to."'
+                     Group By 'Activity Date', city
+                     order by city";
+	    	} else {
+		    echo "do mongo stuff while playing bongos";
+		}  
                 break;
             case 1: //Total Number of Steps Per Day/Gender/Age
-                $sql = "SELECT 
-                DATE(startDate) as 'Activity Date', 
-                gender as Gender,
-                YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) as Age,
-                sum(stepsTaken) as 'Steps'
+		if ($_SESSION['useMongo']==0) {
+                    $sql = "SELECT 
+                    DATE(startDate) as 'Activity Date', 
+                    gender as Gender,
+                    YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) as Age,
+                    sum(stepsTaken) as 'Steps'
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
                                  WHERE gender is not null and startDate BETWEEN '".$from."' and '".$to."' and YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) < 100
                                  Group By 'Activity Date', gender, Age
                                  order by 'Activity Date', Age";
+		} else {
+		    echo "do mongo while playing bongos";
+		}
                 break;
             case 2: //Total Steps Per Day/Occupation
-                $sql = "SELECT 
-                DATE(startDate) as 'Activity Date', 
-                occupation as Occupation,
-                sum(stepsTaken) as 'Steps'
+		if ($_SESSION['useMongo']==0) {
+                    $sql = "SELECT 
+                    DATE(startDate) as 'Activity Date', 
+                    occupation as Occupation,
+                    sum(stepsTaken) as 'Steps'
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
                                  WHERE occupation is not null and startDate BETWEEN '".$from."' and '".$to."'
                                  Group By 'Activity Date', occupation
                                  order by 'Activity Date', occupation";
+		} else {
+		    echo "do mongo while playing bongos";
+		}
                 break;
             case 3: //Total Steps Per User/Year
-                $sql = "SELECT 
-                sum(stepsTaken) as 'Steps', 
-                YEAR(startDate) as 'Activity Year', 
-                users.username as 'User Name',
-                users.address as 'Address',
-                users.city as 'City',
-                users.state as 'State',
-                users.occupation as 'Occupation'
+		if ($_SESSION['useMongo']==0) {
+                    $sql = "SELECT 
+                    sum(stepsTaken) as 'Steps', 
+                    YEAR(startDate) as 'Activity Year', 
+                    users.username as 'User Name',
+                    users.address as 'Address',
+                    users.city as 'City',
+                    users.state as 'State',
+                    users.occupation as 'Occupation'
                                 from steps
                                 INNER JOIN users
                                  on users.username = steps.username
                                  WHERE startDate BETWEEN '".$from."' and '".$to."'
                                  Group By YEAR(startDate), users.username, users.address, users.city, users.state, users.occupation
                                  order by YEAR(startDate), users.username";
+		} else {
+		    echo "do mongo while playing bongos";
+		}
                 break;
         }
         
@@ -109,7 +129,11 @@
     }
 
     function validateLogin($username, $password) {
-        $sql = "Select password, admin from users where username='".$username."'";
+	if ($_SESSION['useMongo']==0) {
+            $sql = "Select password, admin from users where username='".$username."'";
+	} else {
+	    echo "do mongo while playing bongos";
+	}
         $sqlResult = execSingleResult($sql);
         if (empty($sqlResult)) {
             return array(
@@ -133,26 +157,46 @@
        
     }
 
-	function getUserInfo($username){
-		$sql = "Select username, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
-		return execSingleResult($sql);
+    function getUserInfo($username){
+        if ($_SESSION['useMongo']==0){
+    	    $sql = "Select username, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
+	    return execSingleResult($sql);
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
     }
     
     function getHeartrateTelemetry() {
-        $sql = "Select activityDate, heartRate from heartrates order by activityDate desc LIMIT 15;";
-		return execResults($sql);
+    	if ($_SESSION['useMongo']==0){
+            $sql = "Select activityDate, heartRate from heartrates order by activityDate desc LIMIT 15;";
+	    return execResults($sql);
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
     }
     function getStepTelemetry() {
-        $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 15;";
-		return execResults($sql);
+	if ($_SESSION['useMongo']==0){
+            $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 15;";
+	    return execResults($sql);
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
     }
     function getDeviceHeartrateTelemetry() {
-        $sql = "Select activityDate, heartRate from heartrates WHERE username = '".$_SESSION['username']."' order by activityDate desc LIMIT 15;";
-		return execResults($sql);
+	if ($_SESSION['useMongo']==0){
+      	    $sql = "Select activityDate, heartRate from heartrates WHERE username = '".$_SESSION['username']."' order by activityDate desc LIMIT 15;";
+	    return execResults($sql);
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
     }
     function getDeviceStepTelemetry() {
-        $sql = "Select startDate, stepsTaken from steps WHERE username = '".$_SESSION['username']."' order by startDate desc LIMIT 15;";
-		return execResults($sql);
+	if ($_SESSION['useMongo']==0){
+            $sql = "Select startDate, stepsTaken from steps WHERE username = '".$_SESSION['username']."' order by startDate desc LIMIT 15;";
+	    return execResults($sql);
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
     }
 
     function redirect() {
@@ -165,7 +209,11 @@
 
     function validateNewUsername($value1) {
 	$conn = getConnection();
-	$sql = "SELECT * FROM users WHERE username='".$value1."'";
+	if ($_SESSION['useMongo']==0) {
+	    $sql = "SELECT * FROM users WHERE username='".$value1."'";
+	} else {
+	    echo "do mongo stuff while playing bongos";
+	}  
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) > 0){
 		$conn->close();
