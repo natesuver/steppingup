@@ -7,7 +7,8 @@ function initChart() {
     google.charts.load('current', {'packages':['corechart']});
     accumulatedHrData.push(['Date', 'Heartrate']);
     accumulatedStepData.push(['Date', 'Steps']);
-    process();
+    setTimeout(process,800);
+   // process();
 }
 function process() {
         setInterval(getData,refreshRate)

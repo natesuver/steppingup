@@ -19,7 +19,7 @@
         <div class="title">
             <h1>User Search</h1>
         </div>
-        <a href="logout.php" class="homeLink">Log Out</a>
+        <a href="admin-lobby.php" class="homeLink">Return to Lobby</a>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -46,5 +46,7 @@
 
             </tbody>
         </table>
+        <img id="logo" src="<?php if($_SESSION['useMongo']==0) { echo "https://www.mysql.com/common/logos/logo-mysql-170x115.png";} else {echo "https://zdnet3.cbsistatic.com/hub/i/r/2018/02/16/8abdb3e1-47bc-446e-9871-c4e11a46f680/resize/370xauto/8a68280fd20eebfa7789cdaa6fb5eff1/mongo-db-logo.png";} ?>" class="db-logo"></img>
+
     </body>
 </html>

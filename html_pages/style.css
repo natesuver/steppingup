@@ -60,3 +60,11 @@
     color: red;
     padding: 5px;
 }
+
+.db-logo {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 75px;
+    height: auto;
+}

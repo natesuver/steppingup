@@ -137,7 +137,7 @@ function validateLogin($username, $password) {
         $sqlResult = execSingleResult($sql);
 	} else {
         echo "do mongo while playing bongos";
-        $sqlResult ={};
+        //$sqlResult =[]];
 	}
     //TODO: this might give us issues, depending on mongo implementation.
     if (empty($sqlResult)) {
