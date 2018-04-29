@@ -193,7 +193,15 @@ function getHeartrateTelemetry() {
         $sql = "Select activityDate, heartRate from heartrates order by activityDate desc LIMIT 15;";
 	    return execResults($sql);
 	} else {
-	    echo "do mongo stuff while playing bongos";
+        $collection = getUsersCollection();
+        return $collection->aggregate(
+            [
+                ['$unwind' => '$heartrates'],
+                ['$project' => ['activityDate'=>'$heartrates.activityDate', 'heartRate'=>'$heartrates.heartRate']],
+                ['$sort' => ['activityDate' => -1]],
+                ['$limit' => 15]
+            ]
+        )->toArray();
 	}  
 }
 function getStepTelemetry() {
@@ -201,7 +209,15 @@ function getStepTelemetry() {
         $sql = "Select startDate, stepsTaken from steps order by startDate desc LIMIT 15;";
 	    return execResults($sql);
 	} else {
-	    echo "do mongo stuff while playing bongos";
+        $collection = getUsersCollection();
+        return $collection->aggregate(
+            [
+                ['$unwind' => '$steps'],
+                ['$project' => ['startDate'=>'$steps.startDate', 'stepsTaken'=>'$steps.stepsTaken']],
+                ['$sort' => ['startDate' => -1]],
+                ['$limit' => 15]
+            ]
+        )->toArray();   
 	}  
 }
     
