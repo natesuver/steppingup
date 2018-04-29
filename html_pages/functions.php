@@ -1,4 +1,5 @@
 <?php
+    require 'vendor/autoload.php';
     function getConnection() {
 		$conn = new mysqli("localhost", "root","","steppingup");
 		if ($conn->connect_errno) {
@@ -7,6 +8,22 @@
             }
         return $conn;
     }
+
+    function getUsersCollection(){
+		try {
+			$conn =  new MongoDB\Client();
+			$db = $conn->steppingup;
+		} 
+		catch (MongoConnectionException $e) {            
+			printf('Error connecting to MongoDB server');
+			exit();
+        } 
+		catch (MongoException $e) {           
+			printf('Error: ' . $e->getMessage());
+			exit();
+		}
+		return $db->users;
+	}
 
     function debug_to_console( $data ) {
         $output = $data;
@@ -136,8 +153,8 @@ function validateLogin($username, $password) {
         $sql = "Select password, admin from users where username='".$username."'";
         $sqlResult = execSingleResult($sql);
 	} else {
-        echo "do mongo while playing bongos";
-        //$sqlResult =[]];
+        $collection = getUsersCollection();
+        $sqlResult = $collection->findOne(array('username' => $username), array('password'=> 1, 'admin'=> 1));
 	}
     //TODO: this might give us issues, depending on mongo implementation.
     if (empty($sqlResult)) {
@@ -232,8 +249,20 @@ function validateNewUsername($value1) {
             );
         }
     } else {
-            echo "do mongo stuff while playing bongos";
-        }  
+        $collection = getUsersCollection();
+        $result = $collection->count(array('username'=>$value1));
+        if ($result>0) { 
+            return array(
+                "isValid"=> false,
+                "message"=>"Username is taken!! :-O"
+                );
+        } else {
+            return array (
+                "isValid"=> true,
+                "message"=> "Welcome"
+            );
+        }
+    }  
 	
 	}
 ?>
