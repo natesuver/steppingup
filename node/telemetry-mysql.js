@@ -1,3 +1,7 @@
+//Generate random step and heartrate data for random users, for mysql.  you can optionally pass in a particular username as a single argument, and all steps and heartrates will be associated to that user.
+//e.g. node telemetry-mysql.js
+//e.g. node telemetry-mysql.js "bill_jones"
+
 var mysql      = require('mysql');
 var insertInterval = 800;
 var connection = mysql.createConnection({

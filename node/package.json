@@ -1,0 +1,25 @@
+{
+  "name": "steppingup-telemetry",
+  "version": "1.0.0",
+  "description": "The telemetry rig for the stepping up application",
+  "main": "createUsers.js",
+  "dependencies": {
+    "mongodb": "^2.2.33",
+    "mysql": "^2.15.0",
+    "node-mysql": "^0.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natesuver/steppingup.git"
+  },
+  "author": "nate suver, conrad carpenter, kam larkins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/natesuver/steppingup/issues"
+  },
+  "homepage": "https://github.com/natesuver/steppingup#readme"
+}
