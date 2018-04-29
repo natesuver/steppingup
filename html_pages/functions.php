@@ -210,15 +210,33 @@ function getDeviceHeartrateTelemetry() {
       	$sql = "Select activityDate, heartRate from heartrates WHERE username = '".$_SESSION['username']."' order by activityDate desc LIMIT 15;";
 	    return execResults($sql);
 	} else {
-	    echo "do mongo stuff while playing bongos";
-	}  
+        $collection = getUsersCollection();
+	    $result= $collection->find(array('username' => $_SESSION['username']),[
+            'projection' => [
+                'heartrates' => ['$slice'=>-15],
+                'heartrates.activityDate' => 1,
+                'heartrates.heartRate' => 1
+            ],
+            'sort' => ['heartrates.activityDate' => -1]
+        ])->toArray();
+        return $result[0]['heartrates'];
+    }  
 }
 function getDeviceStepTelemetry() {
 	if ($_SESSION['useMongo']==0){
         $sql = "Select startDate, stepsTaken from steps WHERE username = '".$_SESSION['username']."' order by startDate desc LIMIT 15;";
 	    return execResults($sql);
 	} else {
-	    echo "do mongo stuff while playing bongos";
+        $collection = getUsersCollection();
+        $result= $collection->find(array('username' => $_SESSION['username']),[
+            'projection' => [
+                'steps' => ['$slice'=>-15],
+                'steps.startDate' => 1,
+                'steps.stepsTaken' => 1
+            ],
+            'sort' => ['steps.startDate' => -1]
+        ])->toArray();
+        return $result[0]['steps'];    
 	}  
 }
 
