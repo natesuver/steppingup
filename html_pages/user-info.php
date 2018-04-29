@@ -4,8 +4,8 @@
     if (!isset($_SESSION['username'])){
 		header( 'Location: login.php' );
 	}
-    $user = '' ;//Grab user from somewhere(maybe URL route?)
-	$data = getUserInfo($user);
+    $user = $_GET['user'] ;
+	$data = getUserInfo($user)[0];
 ?>
 <html>
     <head>
@@ -22,7 +22,7 @@
         <div class="title">
             <h1>User Info</h1>
         </div>
-        <a href="logout.php" class="homeLink">Log Out</a>
+        <a href="search.php" class="homeLink">Return to Search</a>
 
         <div class="adminNavBox">
             <?php echo "<h4>User: ".$data['username']."</h4><br>" ?>

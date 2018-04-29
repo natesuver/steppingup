@@ -67,7 +67,10 @@
             $sql = "Select username, fName, lName, address from users where username like '%".$text."%' or fname like '%".$text."%'  or lname like '%".$text."%'";
             return execResults($sql);
         } else {
-            echo "do mongo stuff while playing bongos";
+            $collection = getUsersCollection();
+            $results = $collection->find(array('$or' => array(
+                array("username" => ['$regex'=>'^'.$text]),array('fname' => ['$regex'=>'^'.$text]),array('lname' => ['$regex'=>'^'.$text]))), array('username' => 1, 'fName' => 1, 'lName' => 1, 'address' => 1))->toArray();
+            return $results;
         }  
     }
 
@@ -184,7 +187,8 @@ function getUserInfo($username){
     	$sql = "Select username, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
 	    return execSingleResult($sql);
 	} else {
-	    echo "do mongo stuff while playing bongos";
+        $collection = getUsersCollection();
+        return $collection->find(['username'=>$username])->toArray();
 	}  
 }
     
