@@ -143,7 +143,44 @@
                         order by YEAR(startDate), users.username";
                 return execResults($sql);
             } else {
-                echo "do mongo while playing bongos";
+                $collection = getUsersCollection();
+                return $collection->aggregate(
+                    [
+                        ['$match' => [
+                            'steps.startDate' => ['$gte'=>substr($from,0,10)]//,
+                           // 'steps.startDate' => ['$lte'=>substr($to,0,10)]
+                        ]],
+                        ['$unwind' => '$steps'],
+                       
+                        ['$project' => [
+                            'Steps'=>'$steps.stepsTaken', 
+                            'StartDate'=> ['$substr'=> [ '$steps.startDate', 0, 4 ]],
+                            'UserName'=>'$username',
+                            'Address'=>'$address',
+                            'City'=>'$city',
+                            'State'=>'$state',
+                            'Occupation'=>'$occupation']],
+                        ['$sort' => [
+                            'StartDate' => -1,
+                            'UserName'=>1,
+                            'Address'=>1,
+                            'City'=>1,
+                            'State'=>1,
+                            'Occupation'=>1
+                            ]
+                        ],
+                        ['$group' => [
+                            '_id' => ['UserName' => '$UserName'],
+                            'Activity Year' => ['$first'=> '$StartDate'],
+                            'UserName'=>['$first'=> '$UserName'],
+                            'Address'=>['$first'=> '$Address'],
+                            'City'=>['$first'=> '$City'],
+                            'State'=>['$first'=> '$State'],
+                            'Occupation'=>['$first'=> '$Occupation'],
+                            'Steps' => ['$sum'=> '$Steps']
+                        ]]
+                    ]
+                )->toArray();
             }
             break;
         }

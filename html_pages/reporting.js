@@ -42,6 +42,12 @@ function displaySearchResults(results) {
         toastr.info("No Results Found");
         return;
     }
+    for (var i=0;i<results.length;i++) {
+        var result = results[i];
+        if (result._id) {
+            delete result._id;
+        }
+    }
     var fieldNames = Object.keys(results[0]); //get the names of the fields
     var headerText = '';
     for (var i=0;i<fieldNames.length;i++) {
@@ -56,6 +62,7 @@ function displaySearchResults(results) {
         resultText += "<tr>"
         var result = results[i];
         for (var col=0;col<fieldNames.length;col++) {
+            var fieldName = fieldNames[i];
             resultText += "<td>" + Object.values( result )[col] + "</td>";
         }
         resultText += "</tr>"
