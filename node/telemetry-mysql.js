@@ -3,7 +3,7 @@
 //e.g. node telemetry-mysql.js "bill_jones"
 
 var mysql      = require('mysql');
-var insertInterval = 800;
+var insertInterval = 1;
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -34,7 +34,7 @@ function insertHeartrate() {
     var rateEntry = [username,formatNow(),getRandomInteger(60,130)];
     connection.query(mysql.format(sql, rateEntry), function (error, results, fields) {
         if (error) throw error;
-        console.log('Heart rate recorded for ' + username + ': ' + rateEntry[2] + ' bpm' );
+        console.log('MYSQL: Heart rate recorded for ' + username + ': ' + rateEntry[2] + ' bpm' );
       });
 }
 

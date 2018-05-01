@@ -6,7 +6,7 @@
     if (!isset($_SESSION['useMongo'])) {
         $_SESSION['useMongo']=0;
     }
-    echo extension_loaded("mongodb") ? "mongo loaded\n" : "mongo not loaded\n";
+    //echo extension_loaded("mongodb") ? "mongo loaded\n" : "mongo not loaded\n";
     //$conn =  new MongoDB\Client();
 	//$db = $conn->steppingup;
    

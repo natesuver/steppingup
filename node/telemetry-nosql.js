@@ -4,7 +4,7 @@
 
 var mongoClient = require('mongodb').MongoClient;
 
-var insertInterval = 1000; //the amount of time,in ms, between inserts of new telemetry.
+var insertInterval = 1; //the amount of time,in ms, between inserts of new telemetry.
 mongoClient.connect("mongodb://localhost:27017/steppingup", function (err, db) {
     
      if(err)  {
@@ -45,7 +45,7 @@ function insertHeartrate(db) {
             }
            }, function(err, res) {
             if (err) throw err;
-            console.log('Heart rate recorded for ' + username + ': ' + rateEntry.heartRate + ' bpm' );
+            console.log('MONGO: Heart rate recorded for ' + username + ': ' + rateEntry.heartRate + ' bpm' );
           });        
     });
 }

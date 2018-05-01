@@ -91,7 +91,7 @@ $occupation = $user['occupation'];
     </form>
 <div class="userNavBox">
     <div class="list-group">
-	<a class="list-group-item list-group-item-info" href="updateDemo.php">Update my Demographics</a>
+	<a class="list-group-item list-group-item-info" href="updateDemographics.php">Update my Demographics</a>
 	<a class="list-group-item list-group-item-info" href="user-lobby.php">Cancel</a>
     </div>
 </div>

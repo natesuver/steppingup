@@ -64,7 +64,7 @@
     }
     function searchUsers($text) {
         if ($_SESSION['useMongo']==0){
-            $sql = "Select username, fName, lName, address from users where username like '%".$text."%' or fname like '%".$text."%'  or lname like '%".$text."%'";
+            $sql = "Select username, fName, lName, address from users where username like '".$text."%' or fname like '".$text."%'  or lname like '".$text."%'";
             return execResults($sql);
         } else {
             $collection = getUsersCollection();
@@ -222,7 +222,7 @@ function validateLogin($username, $password) {
 function getUserInfo($username){
     if ($_SESSION['useMongo']==0) {
     	$sql = "Select username, fName, lName, address, city, state, pCode, gender, birthDate, height, weight, occupation from users where username='".$username."'";
-	    return execSingleResult($sql);
+	    return execResults($sql);
 	} else {
         $collection = getUsersCollection();
         return $collection->find(['username'=>$username])->toArray();

@@ -14,11 +14,19 @@ function process() {
         setInterval(getData,refreshRate)
 }
 function getData() {
+    startDate = new Date();
     $.ajax( {type:"Get", url:"step-telemetry.php",data: null, success: function(result) {
-        drawStepChart(JSON.parse(result));
+        var stepResults= JSON.parse(result);
+        var duration = new Date()-startDate;
+        console.log(duration);
+        // toastr.info('Step Query Executed in ' + duration + ' ms');
+        drawStepChart(stepResults);
     } } );
     $.ajax( {type:"Get", url:"heartrate-telemetry.php",data: null, success: function(result) {
-        drawHeartrateChart(JSON.parse(result));
+        var hrResults= JSON.parse(result);
+        var duration = new Date()-startDate;
+       // toastr.info('Heartrate Query Executed in ' + duration + ' ms');
+        drawHeartrateChart(hrResults);
     } } );
 }
 

@@ -20,5 +20,5 @@ function displaySearchResults(results) {
     }
     tableResultDiv.innerHTML = resultText;
     var duration = new Date()-startDate;
-    toastr.info('Search Executed in ' + duration + ' ms');
+    toastr.info('Search Executed in ' + duration + ' ms, ' + results.length + ' records found');
 }
