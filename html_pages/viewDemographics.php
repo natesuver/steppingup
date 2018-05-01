@@ -69,7 +69,7 @@ $occupation = $user['occupation'];
             <?php echo "<input class='form-control' id='demo_pCode' type='text' name='pCode' disabled value='$pCode'>" ?>
         </div>
 		<div class="input-group">
-            <label for="demo_occupation">Occupation:</span>
+            <label for="demo_occupation">Birth Date:</span>
             <?php echo "<input id='demo_bDate' type='text' name='birthDate' disabled value='$birthDate'>" ?>
         </div>
         <div class="input-group">

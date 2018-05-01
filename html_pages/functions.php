@@ -122,7 +122,31 @@
                     order by 'Activity Date', occupation";
                 return execResults($sql);
             } else {
-                echo "do mongo while playing bongos";
+                $collection = getUsersCollection();
+                return $collection->aggregate(
+                    [
+                        ['$match' => [
+                            'steps.startDate' => ['$gte'=>substr($from,0,10)]
+                        ]],
+                        ['$unwind' => '$steps'],
+                       
+                        ['$project' => [
+                            'Steps'=>'$steps.stepsTaken', 
+                            'StartDate'=> ['$substr'=> [ '$steps.startDate', 0, 10 ]],
+                            'Occupation'=>'$occupation']],
+                        ['$sort' => [
+                            'StartDate' => 1,
+                            'Occupation'=>1
+                            ]
+                        ],
+                        ['$group' => [
+                            '_id' => ['Occupation' => '$Occupation'],
+                            'Occupation' => ['$first'=> '$Occupation'],
+                            'Activity Day' => ['$first'=> '$StartDate'],
+                            'Steps' => ['$sum'=> '$Steps']
+                        ]]
+                    ]
+                )->toArray();
             }
             break;
         case 3: //Total Steps Per User/Year
@@ -161,12 +185,7 @@
                             'State'=>'$state',
                             'Occupation'=>'$occupation']],
                         ['$sort' => [
-                            'StartDate' => -1,
-                            'UserName'=>1,
-                            'Address'=>1,
-                            'City'=>1,
-                            'State'=>1,
-                            'Occupation'=>1
+                            'UserName'=>1
                             ]
                         ],
                         ['$group' => [
@@ -179,7 +198,9 @@
                             'Occupation'=>['$first'=> '$Occupation'],
                             'Steps' => ['$sum'=> '$Steps']
                         ]]
-                    ]
+                        ], [
+                            'allowDiskUse'=>true
+                        ]
                 )->toArray();
             }
             break;
