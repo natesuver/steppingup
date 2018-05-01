@@ -24,7 +24,7 @@
         </div>
         <a href="search.php" class="homeLink">Return to Search</a>
 
-        <div class="adminNavBox">
+        <div class="adminNavBox" id="userSearch">
             <?php echo "<h4>User: ".$data['username']."</h4><br>" ?>
 			<table style="width:100%">
 				<tr>
