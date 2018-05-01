@@ -68,19 +68,3 @@
     width: 75px;
     height: auto;
 }
-
-th, td {
-	padding: 5px;
-}
-
-#userSearch {
-    border: 1px solid deepskyblue;
-    position: absolute;
-    width:70%;
-    left:15%;
-    height: auto;
-    top: 33%;
-    padding: 5px;
-    min-height: 150px;
-    background-color: cornsilk;
-}
