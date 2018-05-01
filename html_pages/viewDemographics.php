@@ -70,7 +70,7 @@ $occupation = $user['occupation'];
         </div>
 		<div class="input-group">
             <label for="demo_occupation">Birth Date:</span>
-            <?php echo "<input id='demo_bDate' type='text' name='birthDate' disabled value='$birthDate'>" ?>
+            <?php echo "<input class='form-control' id='demo_bDate' type='text' name='birthDate' disabled value='$birthDate'>" ?>
         </div>
         <div class="input-group">
             <label for="demo_gender">Gender:</span>
@@ -86,7 +86,7 @@ $occupation = $user['occupation'];
         </div>
         <div class="input-group">
             <label for="demo_occupation">Occupation:</span>
-            <?php echo "<input id='demo_occupation' type='text' name='occupation' disabled value='$occupation'>" ?>
+            <?php echo "<input class='form-control' id='demo_occupation' type='text' name='occupation' disabled value='$occupation'>" ?>
         </div>
     </form>
 <div class="userNavBox">
