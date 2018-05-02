@@ -87,27 +87,35 @@
                 order by city";
                 return execResults($sql);
             } else {
-                echo "do mongo stuff while playing bongos";
+                $collection = getUsersCollection();
+                return $collection->aggregate(
+                    [
+                        ['$match' => [
+                            'heartrates.activityDate' => ['$gte'=>substr($from,0,10)]
+                        ]],
+                        ['$unwind' => '$heartrates'],
+                       
+                        ['$project' => [
+                            'Heartrates'=> '$heartrates.heartRate', 
+                            'ActivityDate'=> ['$substr'=> [ '$heartrates.activityDate', 0, 10 ]],
+                            'City'=>'$city']
+                        ],
+                        ['$sort' => [
+                            'ActivityDate' => -1,
+                            'City'=>1
+                            ]
+                        ],
+                        ['$group' => [
+                            '_id' => ['City' => '$City'],
+                            'ActivityDate' => ['$first'=> '$ActivityDate'],
+                            'Average Heartrates' => ['$avg'=> '$Heartrates'],
+                            'City'=>['$first'=> '$City'],
+                        ]]
+                    ]
+                )->toArray();
             }  
             break;
-        case 1: //Total Number of Steps Per Day/Gender/Age
-            if ($_SESSION['useMongo']==0) {
-                $sql = "SELECT 
-                DATE(startDate) as 'Activity Date', 
-                gender as Gender,
-                YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) as Age,
-                sum(stepsTaken) as 'Steps'
-                from steps
-                INNER JOIN users
-                    on users.username = steps.username
-                    WHERE gender is not null and startDate BETWEEN '".$from."' and '".$to."' and YEAR(CURRENT_TIMESTAMP) - YEAR(birthDate) - (RIGHT(CURRENT_TIMESTAMP, 5) < RIGHT(birthDate, 5)) < 100
-                    Group By 'Activity Date', gender, Age
-                    order by 'Activity Date', Age";
-                return execResults($sql);
-            } else {
-                echo "do mongo while playing bongos";
-            }
-            break;
+       
         case 2: //Total Steps Per Day/Occupation
 		    if ($_SESSION['useMongo']==0) {
                 $sql = "SELECT 

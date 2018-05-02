@@ -30,7 +30,6 @@
                         <select class="form-control" id="reportId" placeholder="Select a Report">
                             <option value=""></option>
                             <option value="0">Average Heart Rate Per Day/City</option>
-                            <option value="1">Total Number of Steps Per Day/Gender/Age</option>
                             <option value="2">Total Steps Per Day/Occupation</option>
                             <option value="3">Total Steps Per User/Year</option>
                         </select>  
