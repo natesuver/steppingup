@@ -36,7 +36,7 @@ $occupation = $user['occupation'];
 <body>
 <div class="panel panel-info user-demographics-box">
     <div class="panel-heading">
-        <h3 class="panel-title">View / Update User</h3>
+        <h3 class="panel-title">Update Demographics</h3>
     </div>
     <form action="update-demographics-changes.php" method="POST" class="panel-body">
         <div class="input-group">
