@@ -3,7 +3,7 @@
 //e.g. node telemetry-mysql.js "bill_jones"
 
 var mysql      = require('mysql');
-var insertInterval = 1;
+var insertInterval = 1000;
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',

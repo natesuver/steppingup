@@ -190,7 +190,7 @@ if (isset($_POST['submit']) && isset($_POST['username']) && !empty($_POST['usern
         </div>
         <div class="input-group">
             <label for="demo_occupation">Occupation:</span>
-            <input id="demo_occupation" type='text' name='occupation' required>
+            <input class="form-control" gitid="demo_occupation" type='text' name='occupation' required>
         </div>
         <br>
         <input id="enter" type='submit' value="Sign Up" name='submit'>
