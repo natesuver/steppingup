@@ -37,7 +37,7 @@ $occupation = $user['occupation'];
 <body>
 <div class="panel panel-info report-search-box">
     <div class="panel-heading">
-        <h3 class="panel-title">Create New User</h3>
+        <h3 class="panel-title">Your Demographics</h3>
     </div>
     <form action="" method="POST" class="panel-body">
         <div class="input-group">
