@@ -1,0 +1,7 @@
+mongo --eval 'use crap'
+mongo --eval 'db.createCollection('users')'
+mongo --eval 'db.users.createIndex({username:1})'
+mongo --eval 'db.users.createIndex({fname:1})'
+mongo --eval 'db.users.createIndex({lname:1})'
+mongo --eval 'db.users.createIndex({"steps.startDate":1})'
+mongo --eval 'db.users.createIndex({"heartrates.activityDate":1})'

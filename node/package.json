@@ -4,7 +4,7 @@
   "description": "The telemetry rig for the stepping up application",
   "main": "createUsers.js",
   "dependencies": {
-    "mongodb": "^2.2.33",
+    "mongodb": "^2.2.35",
     "mysql": "^2.15.0",
     "node-mysql": "^0.4.2"
   },

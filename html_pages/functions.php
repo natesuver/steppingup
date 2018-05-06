@@ -84,7 +84,7 @@
                 on users.username = heartrates.username
                 WHERE city is not null and activityDate BETWEEN '".$from."' and '".$to."'
                 Group By 'Activity Date', city
-                order by city";
+                order by 'Activity Date', city";
                 return execResults($sql);
             } else {
                 $collection = getUsersCollection();
@@ -101,7 +101,7 @@
                             'City'=>'$city']
                         ],
                         ['$sort' => [
-                            'ActivityDate' => -1,
+                            'ActivityDate' => 1,
                             'City'=>1
                             ]
                         ],
@@ -137,7 +137,6 @@
                             'steps.startDate' => ['$gte'=>substr($from,0,10)]
                         ]],
                         ['$unwind' => '$steps'],
-                       
                         ['$project' => [
                             'Steps'=>'$steps.stepsTaken', 
                             'StartDate'=> ['$substr'=> [ '$steps.startDate', 0, 10 ]],
@@ -153,6 +152,8 @@
                             'Activity Day' => ['$first'=> '$StartDate'],
                             'Steps' => ['$sum'=> '$Steps']
                         ]]
+                    ], [
+                        'allowDiskUse'=>true
                     ]
                 )->toArray();
             }
@@ -179,8 +180,7 @@
                 return $collection->aggregate(
                     [
                         ['$match' => [
-                            'steps.startDate' => ['$gte'=>substr($from,0,10)]//,
-                           // 'steps.startDate' => ['$lte'=>substr($to,0,10)]
+                            'steps.startDate' => ['$gte'=>substr($from,0,10)]
                         ]],
                         ['$unwind' => '$steps'],
                        

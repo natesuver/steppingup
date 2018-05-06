@@ -1,0 +1,7 @@
+use crap
+db.createCollection('users')
+db.users.createIndex({username:1})
+db.users.createIndex({fname:1})
+db.users.createIndex({lname:1})
+db.users.createIndex({"steps.startDate":1})
+db.users.createIndex({"heartrates.activityDate":1})
