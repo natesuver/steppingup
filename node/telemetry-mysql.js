@@ -3,7 +3,7 @@
 //e.g. node telemetry-mysql.js "bill_jones"
 
 var mysql      = require('mysql');
-var insertInterval = 1000;
+var insertInterval = 2; //the amount of time,in ms, between inserts of new telemetry.
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
